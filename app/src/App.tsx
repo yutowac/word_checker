@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -7,6 +7,7 @@ import { useAudioPlayer } from './useAudioPlayer'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [ngWord, setNgWord]= useState<string>('じゃないですか')
   const [transcripts, setTranscripts] = useState<string[]>([]);
   const { transcript, isListening, startListening, stopListening, setTranscript } = useSpeechRecognition();
   const swtichListening = () => {
@@ -16,8 +17,10 @@ function App() {
     setTranscript('');
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const { audioRef, play } = useAudioPlayer('./se_30102.wav')
-
+  const { audioRef, play } = useAudioPlayer('./se_30102.wav');
+  const onChange = (e:React.ChangeEvent<HTMLInputElement>) => {
+    setNgWord(e.target.value);
+  }
 
   useEffect(() => {
     if (transcript.length > 0){
@@ -27,7 +30,7 @@ function App() {
         ? newTranscripts.slice(-5)
         : newTranscripts;
       })
-      if (transcript.includes('じゃないですか')) {
+      if (transcript.includes(ngWord)) {
         setCount(current => current + 1);
         play();
       }
@@ -47,11 +50,14 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>じゃないですかを止める</h1>
+      <h1>
+        <input className='title' onChange={onChange} value={ngWord} />
+        を止める
+      </h1>
       <div className="card">
         <audio ref={audioRef} />
         <button onClick={swtichListening}>
-          start
+          {!isListening ? 'start' : 'stop'}
         </button>
         <ul>
           {transcripts.map((elem, idx) => (<li key={idx}>{elem}</li>))}
