@@ -1,6 +1,6 @@
 # example netlify.toml
 [build]
-  command = "cd app && npx typescript@latest tsc && npx vite build"
+  command = "cd app && npm install && tsc && vite build"
   functions = "netlify/functions"
   publish = "./app/dist"
 
