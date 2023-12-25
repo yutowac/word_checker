@@ -7,7 +7,7 @@ import { useAudioPlayer } from './useAudioPlayer'
 
 function App() {
   const [count, setCount] = useState(0)
-  const [ngWord, setNgWord]= useState<string>('じゃないですか')
+  const [ngWord, setNgWord]= useState<string>('みたいな感じ')
   const [transcripts, setTranscripts] = useState<string[]>([]);
   const { transcript, isListening, startListening, stopListening, setTranscript } = useSpeechRecognition();
   const swtichListening = () => {
