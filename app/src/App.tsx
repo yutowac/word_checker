@@ -5,6 +5,7 @@ import './App.css'
 import { useSpeechRecognition } from './useSpeechRecognition'
 import { useAudioPlayer } from './useAudioPlayer'
 
+
 function App() {
   const [count, setCount] = useState(0)
   const [ngWord, setNgWord]= useState<string>('みたいな感じ')
